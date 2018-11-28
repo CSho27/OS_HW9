@@ -132,3 +132,7 @@ the pattern they show makes sense based on the explanation I gave in part c.
 
 
 2.
+chris@chris-VirtualBox:~/Documents/OS/OS_HW9$ ./prob2 
+Reader #1: version 1: "string"
+Reader #2: version 2: "string"
+

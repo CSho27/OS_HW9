@@ -20,6 +20,10 @@ struct condition {
 
 struct condition writer_done;
 struct condition reader_done;
+int next_count;
+
+sem_t next;
+
 
 char buffer[BUFLEN];
 int version = 0;
@@ -33,6 +37,8 @@ void cwait(struct condition *c); // Semaphore implementation of conditional wait
 void cpost(struct condition *c); // Semaphore implementation of conditional signal
 
 int main(){
+	sem_init(&next, 0, 0);
+
 	bzero(buffer, BUFLEN);
 
 	pthread_t rd1_tid;
@@ -48,6 +54,7 @@ int main(){
 	pthread_create(&rd2_tid, &rd2_attr, reader2, NULL);
 
 	do{
+		sleep(1);
 		
 
 		bzero(buffer, BUFLEN);
@@ -55,11 +62,9 @@ int main(){
 		version++;
 
 		cpost(&writer_done);
-		printf("here\n");
-		fflush(stdout);
-		cwait(&reader_done);
 
 	}while(version<2);
+	cwait(&reader_done);
 
 	return 0;
 }
@@ -69,9 +74,6 @@ void* reader1(){
 	while(!done){
 
 		cwait(&writer_done);
-
-		printf("here\n");
-		fflush(stdout);
 		read_count++;
 		
 		if(version == 1){
@@ -91,12 +93,12 @@ void* reader1(){
 void* reader2(){
 	bool done = false;
 	while(!done){
-		
-		cwait(&writer_done);
+		fflush(stdout);
+		fflush(stdout);
 		read_count++;
 		
-		if(version == 1){
-			printf("Reader #1: %s\n", buffer);
+		if(version == 2){
+			printf("Reader #2: %s\n", buffer);
 			fflush(stdout);
 			done = true;
 		}

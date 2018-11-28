@@ -1,0 +1,134 @@
+Christopher Shorter
+HW 8 Report
+
+1.
+
+a.
+Output:
+chris@chris-VirtualBox:~/Documents/OS/OS_HW9$ ./prob1 
+Parent Iteration #0. data = 3
+Parent Iteration #1. data = 6
+Parent Iteration #2. data = 7
+Parent Iteration #3. data = 5
+Parent Iteration #4. data = 3
+Parent Iteration #5. data = 5
+Parent Iteration #6. data = 6
+Parent Iteration #7. data = 2
+Parent Iteration #8. data = 9
+Parent Iteration #9. data = 1
+Parent Iteration #10. data = 2
+Parent Iteration #11. data = 7
+Parent Iteration #12. data = 0
+Parent Iteration #13. data = 9
+Child Iteration #0. data = 3
+Child Iteration #1. data = 6
+Child Iteration #2. data = 7
+Child Iteration #3. data = 5
+Child Iteration #4. data = 3
+Child Iteration #5. data = 5
+Child Iteration #6. data = 6
+Child Iteration #7. data = 2
+Child Iteration #8. data = 9
+Child Iteration #9. data = 1
+Child Iteration #10. data = 2
+Child Iteration #11. data = 7
+Child Iteration #12. data = 0
+Child Iteration #13. data = 9
+Parent Iteration #14. data = 3
+Parent Iteration #15. data = 6
+Parent Iteration #16. data = 0
+Parent Iteration #17. data = 6
+Parent Iteration #18. data = 2
+Parent Iteration #19. data = 6
+Parent Iteration #20. data = 1
+Parent Iteration #21. data = 8
+Parent Iteration #22. data = 7
+Parent Iteration #23. data = 9
+Parent Iteration #24. data = 2
+Child Iteration #14. data = 3
+Child Iteration #15. data = 6
+Child Iteration #16. data = 0
+Child Iteration #17. data = 6
+Child Iteration #18. data = 2
+Child Iteration #19. data = 6
+Child Iteration #20. data = 1
+Child Iteration #21. data = 8
+Child Iteration #22. data = 7
+Child Iteration #23. data = 9
+Child Iteration #24. data = 2
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+2
+1
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+1
+2
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+
+
+(I left the order mechanism in, because why not get extra information)
+
+
+b.
+The parent and child seem to be alternating. The parent does its whole first round of writing, then the child does its first round of reading until empty, then this repeats for the second round. It 
+seems to be just about the same every time the program is run. However, the numbered ordering suggests otherwise, It shows the consumer starting to alternate reading during the first round of reading,
+and second round of writing starting to alternate during the
+second round of reading.
+
+c.
+Mutex just ensures no two processes are taking place at the same time, and the other two just ensure the consumer isn't reading an empty buffer and the producer isn't writing to a full one. So, the
+sleep function has more to do with order than anything. Without the  would probably just alternate the whole time, because once the producer writes a value in, the consumer will be able to get inside
+the mutex and be able to read. However, the sleep function has the consumer start by waiting 2 seconds, and the producer end each cycle by waiting 2 seconds. This prevents them from actually being 
+able to alternate because they are rarely ever writing at the same time. 
+
+d.
+Okay, I kind of already did this. Based on what I said earlier, this ordering did not agree with my observations from part a. The output shows the entirety of each round of writing and reading happening 
+at once whereas the order printing values show them alternating in the middle. I don't know why these would be different, but I definitely trust the numbered values more than I do the output. I think 
+the pattern they show makes sense based on the explanation I gave in part c.
+
+
+
+
+2.
